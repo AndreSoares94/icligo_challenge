@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Class defining the structure of a Purchase
@@ -29,9 +30,9 @@ public class Purchase {
     /**
      * Type of product
      */
-    @NotBlank(message = "Please add a product type")
-    @Column(name = "product_type", length = 45, nullable = false)
-    private String product_type;
+    @ManyToOne
+    @JoinColumn(name="product_type_fk", referencedColumnName = "id_product_type")
+    private Product_type product_type;
 
     /**
      * Expiration date
@@ -48,7 +49,7 @@ public class Purchase {
 
     @Override
     public String toString() {
-        return "Purchase with id " +  id_purchase + " has product type: " + product_type + " with expiration date in " +
-                expires.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)) +  ". More details: " + details;
+        return "Purchase with id " +  id_purchase + " has product type: " + product_type.getType_description() + " with expiration date in " +
+                expires.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(Locale.UK)) +  ". More details: " + details;
     }
 }

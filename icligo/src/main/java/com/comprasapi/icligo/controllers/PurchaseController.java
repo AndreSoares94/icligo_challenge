@@ -1,5 +1,6 @@
 package com.comprasapi.icligo.controllers;
 
+import com.comprasapi.icligo.errors.ProductTypeNotFound;
 import com.comprasapi.icligo.errors.PurchaseNotFound;
 import com.comprasapi.icligo.models.Details;
 import com.comprasapi.icligo.models.Purchase;
@@ -33,6 +34,11 @@ public class PurchaseController {
         return ResponseEntity.status(200).body(purchaseService.getPurchase(id));
     }
 
+    @GetMapping("/type/{id}")
+    public ResponseEntity<List<Purchase>> getPurchasebyTypeID(@PathVariable Long id) throws ProductTypeNotFound {
+        return ResponseEntity.status(200).body(purchaseService.getPurchasebyType(id));
+    }
+
     @GetMapping("/validPurchase")
     public ResponseEntity<List<Purchase>> getValidPurchases() {
         return ResponseEntity.status(200).body(purchaseService.getValidPurchases());
@@ -44,7 +50,7 @@ public class PurchaseController {
     }
 
     @PutMapping
-    public ResponseEntity<Purchase> updateDetails(@RequestBody Purchase purchase) throws PurchaseNotFound {
+    public ResponseEntity<Purchase> updateDetails(@RequestBody @Valid Purchase purchase) throws PurchaseNotFound {
         return ResponseEntity.status(201).body(purchaseService.updatePurchase(purchase));
     }
 

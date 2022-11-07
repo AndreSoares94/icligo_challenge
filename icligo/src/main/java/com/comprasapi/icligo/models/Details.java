@@ -46,7 +46,7 @@ public class Details {
 
     @Override
     public String toString() {
-        return "Description of purchase: " +  description + ". Amount purchased: " + quantity + " with a total value of " + value;
+        return "Description of purchase: " +  description + ". Amount purchased: " + quantity + " with a total value of " + value + "€.";
     }
 
 }

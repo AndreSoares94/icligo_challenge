@@ -38,7 +38,7 @@ public class DetailsController {
     }
 
     @PutMapping
-    public ResponseEntity<Details> updateDetails(@RequestBody Details details) throws PurchaseNotFound {
+    public ResponseEntity<Details> updateDetails(@RequestBody @Valid Details details) throws DetailNotFound {
         return ResponseEntity.status(201).body(detailsService.updateDetail(details));
     }
 

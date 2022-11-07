@@ -1,10 +1,13 @@
 package com.comprasapi.icligo.services;
 
 import com.comprasapi.icligo.DAO.IDetails;
+import com.comprasapi.icligo.DAO.IProductType;
 import com.comprasapi.icligo.DAO.IPurchase;
 import com.comprasapi.icligo.errors.DetailNotFound;
+import com.comprasapi.icligo.errors.ProductTypeNotFound;
 import com.comprasapi.icligo.errors.PurchaseNotFound;
 import com.comprasapi.icligo.models.Details;
+import com.comprasapi.icligo.models.Product_type;
 import com.comprasapi.icligo.models.Purchase;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +20,12 @@ import java.util.Optional;
 public class PurchaseService {
 
     private IPurchase purchasedao;
+    private IProductType product_type_dao;
 
     // em vez de autowired, fazemos construtor para autoinjeçao de dependencias
-    public PurchaseService(IPurchase purchasedao){
+    public PurchaseService(IPurchase purchasedao, IProductType product_type_dao){
         this.purchasedao = purchasedao;
+        this.product_type_dao = product_type_dao;
     }
 
     /**
@@ -45,6 +50,12 @@ public class PurchaseService {
     public Purchase getPurchase(Long id) throws PurchaseNotFound {
         Purchase purchase = purchasedao.findById(id).orElseThrow(() -> new PurchaseNotFound(id));
         return purchase;
+    }
+
+    public List<Purchase> getPurchasebyType(Long id) throws ProductTypeNotFound {
+        Product_type ptype = product_type_dao.findById(id).orElseThrow(() -> new ProductTypeNotFound(id));
+        List<Purchase> list = purchasedao.findByProductTypeID(id);
+        return list;
     }
 
     /**

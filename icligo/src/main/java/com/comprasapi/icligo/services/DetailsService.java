@@ -35,8 +35,8 @@ public class DetailsService {
         return newDetails;
     }
 
-    public Details updateDetail(Details details) throws DetailNotFound {
-        Details oldDetails = detailsdao.findById(details.getId_detail()).orElseThrow(() -> new DetailNotFound(details.getId_detail()));
+    public Details updateDetail(Long id, Details details) throws DetailNotFound {
+        Details oldDetails = detailsdao.findById(id).orElseThrow(() -> new DetailNotFound(id));
         oldDetails.setDescription(details.getDescription());
         oldDetails.setQuantity(details.getQuantity());
         oldDetails.setValue(details.getValue());

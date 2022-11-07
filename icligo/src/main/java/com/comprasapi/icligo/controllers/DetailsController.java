@@ -37,9 +37,9 @@ public class DetailsController {
         return ResponseEntity.status(201).body(detailsService.newDetail(details));
     }
 
-    @PutMapping
-    public ResponseEntity<Details> updateDetails(@RequestBody @Valid Details details) throws DetailNotFound {
-        return ResponseEntity.status(201).body(detailsService.updateDetail(details));
+    @PutMapping("/{id}")
+    public ResponseEntity<Details> updateDetails(@PathVariable Long id, @RequestBody @Valid Details details) throws DetailNotFound {
+        return ResponseEntity.status(201).body(detailsService.updateDetail(id, details));
     }
 
     @DeleteMapping("/{id}")

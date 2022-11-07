@@ -32,14 +32,10 @@ public class PurchaseService {
      * Gets list of strings of all purchases in DB
      * @return list of strings with info of all purchases
      */
-    public List<String> getAllPurchases(){
+    public List<Purchase> getAllPurchases(){
         List<Purchase> list_purchases = purchasedao.findAll();
-        List<String> list = new ArrayList<>();
-        for (Purchase purchase : list_purchases) {
-            String s = new String(purchase.toString());
-            list.add(s);
-        }
-        return list;
+
+        return list_purchases;
     }
 
     /**
@@ -52,6 +48,12 @@ public class PurchaseService {
         return purchase;
     }
 
+    /**
+     * Gets all purchases with product type id
+     * @param id
+     * @return list of Purchases of type id
+     * @throws ProductTypeNotFound if id does not match with any Product Type in DB
+     */
     public List<Purchase> getPurchasebyType(Long id) throws ProductTypeNotFound {
         Product_type ptype = product_type_dao.findById(id).orElseThrow(() -> new ProductTypeNotFound(id));
         List<Purchase> list = purchasedao.findByProductTypeID(id);
@@ -79,12 +81,13 @@ public class PurchaseService {
 
     /**
      * Given a Purchase, it updates its fields
-     * @param purchase
-     * @return purchase updates
+     * @param id id of the Purchase that will be updated
+     * @param purchase purchase with new parameters to update
+     * @return updated purchase
      * @throws PurchaseNotFound if theres is not Purchase with the id of the purchase to update
      */
-    public Purchase updatePurchase(Purchase purchase) throws PurchaseNotFound {
-        Purchase oldPurchase = purchasedao.findById(purchase.getId_purchase()).orElseThrow(() -> new PurchaseNotFound(purchase.getId_purchase()));
+    public Purchase updatePurchase(Long id, Purchase purchase) throws PurchaseNotFound {
+        Purchase oldPurchase = purchasedao.findById(id).orElseThrow(() -> new PurchaseNotFound(id));
         oldPurchase.setDetails(purchase.getDetails());
         oldPurchase.setExpires(purchase.getExpires());
         oldPurchase.setProduct_type(purchase.getProduct_type());

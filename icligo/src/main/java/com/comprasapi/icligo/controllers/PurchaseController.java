@@ -25,7 +25,7 @@ public class PurchaseController {
     }
 
     @GetMapping
-    public ResponseEntity<List<String>> listPurchases(){
+    public ResponseEntity<List<Purchase>> listPurchases(){
         return ResponseEntity.status(200).body(purchaseService.getAllPurchases());
     }
 
@@ -45,17 +45,17 @@ public class PurchaseController {
     }
 
     @PostMapping
-    public ResponseEntity<Purchase> createDetails(@RequestBody @Valid Purchase purchase){
+    public ResponseEntity<Purchase> createPurchase(@RequestBody @Valid Purchase purchase){
         return ResponseEntity.status(201).body(purchaseService.newPurchase(purchase));
     }
 
-    @PutMapping
-    public ResponseEntity<Purchase> updateDetails(@RequestBody @Valid Purchase purchase) throws PurchaseNotFound {
-        return ResponseEntity.status(201).body(purchaseService.updatePurchase(purchase));
+    @PutMapping("/{id}")
+    public ResponseEntity<Purchase> updatePurchase(Long id, @RequestBody @Valid Purchase purchase) throws PurchaseNotFound {
+        return ResponseEntity.status(201).body(purchaseService.updatePurchase(id, purchase));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteDetails(@PathVariable Long id) throws PurchaseNotFound {
+    public ResponseEntity<?> deletePurchase(@PathVariable Long id) throws PurchaseNotFound {
         purchaseService.deletePurchase(id);
         return ResponseEntity.status(204).build();
     }

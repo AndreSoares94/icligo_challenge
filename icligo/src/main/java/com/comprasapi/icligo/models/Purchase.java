@@ -47,9 +47,4 @@ public class Purchase {
     @JoinColumn(name = "id_detail_fk", referencedColumnName = "id_detail")
     private Details details;
 
-    @Override
-    public String toString() {
-        return "Purchase with id " +  id_purchase + " has product type: " + product_type.getType_description() + " with expiration date in " +
-                expires.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(Locale.UK)) +  ". More details: " + details;
-    }
 }

@@ -39,9 +39,9 @@ public class ProductTypeController {
         return ResponseEntity.status(201).body(ptypeService.newPType(ptype));
     }
 
-    @PutMapping
-    public ResponseEntity<Product_type> updateType(@RequestBody @Valid Product_type ptype) throws ProductTypeNotFound {
-        return ResponseEntity.status(201).body(ptypeService.updatePType(ptype));
+    @PutMapping("/{id}")
+    public ResponseEntity<Product_type> updateType(@PathVariable Long id, @RequestBody @Valid Product_type ptype) throws ProductTypeNotFound {
+        return ResponseEntity.status(201).body(ptypeService.updatePType(id, ptype));
     }
 
     @DeleteMapping("/{id}")

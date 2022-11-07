@@ -1,5 +1,6 @@
 package com.comprasapi.icligo.errors;
 
+import com.comprasapi.icligo.models.Product_type;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -13,10 +14,8 @@ public class AppExceptionHandler {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(DetailNotFound.class)
-    public Map<String, String> handleDetailException(DetailNotFound ex){
-        Map<String, String> errorMap  = new HashMap<>();
-        errorMap.put("errorMessage", ex.getMessage());
-        return errorMap;
+    public String handleDetailException(DetailNotFound ex){
+        return ex.getMessage();
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -24,4 +23,11 @@ public class AppExceptionHandler {
     public String handlePurchaseException(PurchaseNotFound ex){
         return ex.getMessage();
     }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(ProductTypeNotFound.class)
+    public String handleProductTypeException(ProductTypeNotFound ex){
+        return ex.getMessage();
+    }
+
 }

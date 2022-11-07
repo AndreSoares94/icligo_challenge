@@ -44,9 +44,5 @@ public class Details {
     @Column(name = "value", nullable = false)
     private double value;
 
-    @Override
-    public String toString() {
-        return "Description of purchase: " +  description + ". Amount purchased: " + quantity + " with a total value of " + value + "€.";
-    }
 
 }

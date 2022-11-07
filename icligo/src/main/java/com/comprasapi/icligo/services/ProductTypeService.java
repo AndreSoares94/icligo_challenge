@@ -31,10 +31,9 @@ public class ProductTypeService {
         return newptype;
     }
 
-    public Product_type updatePType(Product_type ptype) throws ProductTypeNotFound {
-        Product_type oldpType = product_type_dao.findById(ptype.getId_product_type()).orElseThrow(() -> new ProductTypeNotFound(ptype.getId_product_type()));
+    public Product_type updatePType(Long id, Product_type ptype) throws ProductTypeNotFound {
+        Product_type oldpType = product_type_dao.findById(id).orElseThrow(() -> new ProductTypeNotFound(id));
         oldpType.setType_description(ptype.getType_description());
-
         product_type_dao.save(oldpType);
         return oldpType;
     }
